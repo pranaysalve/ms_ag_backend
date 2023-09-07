@@ -80,8 +80,7 @@ web_modules/
 .env.local
 
 #auth files
-APIGateway/config/auth.js
-APIGateway/config/config.json
+config/auth.js
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
