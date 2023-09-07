@@ -80,7 +80,8 @@ web_modules/
 .env.local
 
 #auth files
-config/auth.js
+config/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
