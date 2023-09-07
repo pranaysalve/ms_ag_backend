@@ -2,10 +2,12 @@ const express = require("express");
 const xss = require("xss-clean");
 const cors = require("cors");
 const proxy = require("express-http-proxy");
+const dotenv = require("dotenv");
 //router
 const Route = require("./routes/routes");
 //middleware
 const verifyToken = require("./middleware/verifyToken");
+dotenv.config({ path: "./.env" });
 const app = express();
 
 app.use(cors());
@@ -23,15 +25,23 @@ app.use("/user", Route);
 
 // app.use(verifyToken);
 
-app.use("/product", proxy("http://localhost:8010"));
-app.use("/packaging", verifyToken, proxy("http://localhost:8011"));
-app.use("/sku", verifyToken, proxy("http://localhost:8012"));
-app.use("/rates", verifyToken, proxy("http://localhost:8013"));
-app.use("/location", verifyToken, proxy("http://localhost:8014"));
-app.use("/logisticsmode", verifyToken, proxy("http://localhost:8015"));
-app.use("/logisticswithsku", verifyToken, proxy("http://localhost:8016"));
-app.use("/freightdetails", verifyToken, proxy("http://localhost:8017"));
-app.use("/freight", verifyToken, proxy("http://localhost:8018"));
-app.use("/order", verifyToken, proxy("http://localhost:8019"));
+app.use("/product", proxy(process.env.PRODUCTSERVICE));
+app.use("/packaging", verifyToken, proxy(process.env.PACKAGINGSERVICE));
+app.use("/sku", verifyToken, proxy(process.env.SKUSERVICE));
+app.use("/rates", verifyToken, proxy(process.env.RATESERVICE));
+app.use("/location", verifyToken, proxy(process.env.LOCATIONSERVICE));
+app.use("/logisticsmode", verifyToken, proxy(process.env.LOGISTICSMODESERVICE));
+app.use(
+  "/logisticswithsku",
+  verifyToken,
+  proxy(process.env.LOGISTICSWITHSKUSERVICE)
+);
+app.use(
+  "/freightdetails",
+  verifyToken,
+  proxy(process.env.FREIGHTDETAILSSERVICE)
+);
+app.use("/freight", verifyToken, proxy(process.env.FREIGHTSERVICE));
+app.use("/order", verifyToken, proxy(process.env.ORDERSERVICE));
 
 module.exports = app;
