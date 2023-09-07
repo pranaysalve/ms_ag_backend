@@ -8,10 +8,10 @@ const DB = process.env.DBURI.replace("<PASSWORD>", process.env.DBPASS);
 
 mongoose
   .connect(DB, {
-    dbName: "Freight",
+    dbName: "Order",
   })
   .then((res) => {
-    console.log("Freight Database is connected");
+    console.log("Order Database is connected");
   })
   .catch((err) => {
     console.log("error connecting with database", err);

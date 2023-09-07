@@ -11,6 +11,15 @@ exports.getAll = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.getAllByCustomer = catchAsync(async (req, res, next) => {
+  const doc = await Model.find({ uid: req.params.id });
+  res.status(200).json({
+    data: {
+      results: doc.length,
+      data: doc,
+    },
+  });
+});
 
 exports.createOne = catchAsync(async (req, res, next) => {
   const findDoc = await Model.findOne({ ...req.body });

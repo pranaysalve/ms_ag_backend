@@ -20,16 +20,18 @@ app.use((req, res, next) => {
 
 //route
 app.use("/user", Route);
-app.use(verifyToken);
+
+// app.use(verifyToken);
+
 app.use("/product", proxy("http://localhost:8010"));
-app.use("/packaging", proxy("http://localhost:8011"));
-app.use("/sku", proxy("http://localhost:8012"));
-app.use("/rates", proxy("http://localhost:8013"));
-app.use("/location", proxy("http://localhost:8014"));
-app.use("/logisticsmode", proxy("http://localhost:8015"));
-app.use("/logisticswithsku", proxy("http://localhost:8016"));
-app.use("/freightdetails", proxy("http://localhost:8017"));
-app.use("/freight", proxy("http://localhost:8018"));
-app.use("/order", proxy("http://localhost:8019"));
+app.use("/packaging", verifyToken, proxy("http://localhost:8011"));
+app.use("/sku", verifyToken, proxy("http://localhost:8012"));
+app.use("/rates", verifyToken, proxy("http://localhost:8013"));
+app.use("/location", verifyToken, proxy("http://localhost:8014"));
+app.use("/logisticsmode", verifyToken, proxy("http://localhost:8015"));
+app.use("/logisticswithsku", verifyToken, proxy("http://localhost:8016"));
+app.use("/freightdetails", verifyToken, proxy("http://localhost:8017"));
+app.use("/freight", verifyToken, proxy("http://localhost:8018"));
+app.use("/order", verifyToken, proxy("http://localhost:8019"));
 
 module.exports = app;

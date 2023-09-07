@@ -1,6 +1,9 @@
 const app = require("./app");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const http = require("http");
+
+
 
 dotenv.config({ path: "./.env" });
 
@@ -17,6 +20,9 @@ mongoose
     console.log("error connecting with database", err);
   });
 
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
 const PORT = process.env.PORT || 8010;
 
 app.listen(PORT, () => {

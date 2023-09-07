@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const Model = require("../model/model");
 
+
 exports.getAll = catchAsync(async (req, res, next) => {
   const doc = await Model.find({ ...req.query });
   res.status(200).json({

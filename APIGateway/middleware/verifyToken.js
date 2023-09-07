@@ -1,11 +1,6 @@
 const { admin } = require("../config/auth");
 const verifyToken = async (req, res, next) => {
-  if (!req.header("Authorization")) {
-    res
-      .status(401)
-      .json({ error: "Unauthorized Access: You are not authorised" });
-    next();
-  }
+  // if (req.header("Authorization")) {
   const idToken = req.header("Authorization").replace("Bearer", "").trim()
     ? req.header("Authorization").replace("Bearer", "").trim()
     : req.header("Authorization");
@@ -33,6 +28,7 @@ const verifyToken = async (req, res, next) => {
       .status(401)
       .json({ error: "Unauthorized Access: You are not authorised" });
   }
+  // }
 };
 
 module.exports = verifyToken;

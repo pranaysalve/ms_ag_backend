@@ -1,6 +1,7 @@
 const express = require("express");
 const xss = require("xss-clean");
 const cors = require("cors");
+const verifyIdToken = require("./middleware/varifyToken")
 //router
 const Route = require("./routes/routes");
 const app = express();
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(verifyIdToken)
 //route
 app.use("/", Route);
 module.exports = app;
