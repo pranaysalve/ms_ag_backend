@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(verifyToken);
+app.use(verifyToken);
 //route
 
 app.use("/", Route);
