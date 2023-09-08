@@ -80,8 +80,8 @@ web_modules/
 .env.local
 
 #auth files
-/config.json
-/firbase.config.js
+**/config.json
+**/firbase.config.js
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
