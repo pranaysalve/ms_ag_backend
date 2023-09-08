@@ -16,7 +16,17 @@ app.use(express.json({ limit: "10kb" }));
 app.use(xss());
 
 app.use((req, res, next) => {
-  console.log(req.protocol, req.hostname, req.method, " ", req.url);
+  console.log(
+    req.protocol,
+    req.hostname,
+    req.method,
+    " ",
+    req.url,
+    " - ",
+    req.statusCode,
+    " - ",
+    req.statusMessage
+  );
   next();
 });
 

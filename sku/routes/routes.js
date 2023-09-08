@@ -9,6 +9,7 @@ router.get("/", Controller.getAll);
 router.use(restrictTo("admin"));
 router
   .post("/", Controller.createOne)
+  .patch("/", Controller.updateOne)
   .patch("/:id", Controller.updateOne)
   .delete("/:id", Controller.deleteOne)
   .post("/many", Controller.createMany)

@@ -29,7 +29,27 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-  const doc = await Model.findByIdAndUpdate(req.params.id, { ...req.body });
+  let doc;
+  if (req.params.id) {
+    doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  }
+  if (!req.params.id) {
+    doc = await Model.updateMany({ sku: { product: req.body } });
+  }
+  // let updateRate;
+  // try {
+  //   updateRate = await axios.patch(`http://localhost:8013`, doc, {
+  //     headers: {
+  //       Authorization: req.header("authorization" || "Authorization"),
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   console.log({ updateRate });
+  // } catch (error) {
+  //   console.error("Error updating SKU:", error.message);
+  //   // Handle the error as needed
+  // }
+
   res.status(200).json({
     data: {
       results: doc.length,

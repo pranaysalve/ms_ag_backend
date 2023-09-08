@@ -6,7 +6,7 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
   fees: {
-    type: String,
+    type: Number,
   },
   rate: {
     type: Object,

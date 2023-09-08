@@ -4,7 +4,7 @@ const verifyToken = async (req, res, next) => {
   const idToken = req.header("authorization").replace("Bearer", "").trim()
     ? req.header("authorization").replace("Bearer", "").trim()
     : req.header("authorization" || "Authorization");
-  console.log({ idToken });
+  // console.log({ idToken });
   if (!idToken) {
     res
       .status(401)
@@ -19,9 +19,9 @@ const verifyToken = async (req, res, next) => {
       .getUser(decodedToken.uid)
       .then((usr) => usr)
       .catch((err) => err);
-    console.log({ userDetails });
+    // console.log({ userDetails });
     req.user = { ...decodedToken, role: userDetails.customClaims.type };
-    console.log(req.user);
+    // console.log(req.user);
     next();
   } catch (error) {
     res

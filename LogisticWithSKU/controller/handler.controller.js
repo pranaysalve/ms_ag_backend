@@ -29,7 +29,13 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-  const doc = await Model.findByIdAndUpdate(req.params.id, { ...req.body });
+  console.log({ body: req.body });
+  if (req.params.id) {
+    doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  }
+  if (!req.params.id) {
+    doc = await Model.updateMany({ sku: { product: req.body } });
+  }
   res.status(200).json({
     data: {
       results: doc.length,

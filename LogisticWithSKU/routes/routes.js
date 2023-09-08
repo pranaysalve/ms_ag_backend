@@ -8,6 +8,7 @@ router.get("/", Controller.getAll);
 
 router
   .post("/", Controller.createOne)
+  .patch("/", Controller.updateOne)
   .patch("/:id", Controller.updateOne)
   .delete("/:id", Controller.deleteOne)
   .post("/many", Controller.createMany)

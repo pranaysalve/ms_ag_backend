@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LogisticsWithSKU = new mongoose.Schema({
   //Onion, Pome, Grapes
-  skuRef: {
+  sku: {
     type: Object,
     required: true,
   },
