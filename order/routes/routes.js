@@ -4,12 +4,11 @@ const { restrictTo } = require("../middleware/restrictUser");
 
 router.use(restrictTo("customer", "admin", "manager"));
 
-router.get("/:id", Controller.getAllByCustomer);
+router.get("/:id", Controller.getAllByCustomer).post("/", Controller.createOne);
 
 router.use(restrictTo("admin", "manager"));
 router
   .get("/", Controller.getAll)
-  .post("/", Controller.createOne)
   .patch("/:id", Controller.updateOne)
   .delete("/:id", Controller.deleteOne)
   .post("/many", Controller.createMany)

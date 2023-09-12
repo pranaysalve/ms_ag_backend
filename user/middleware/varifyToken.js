@@ -1,20 +1,17 @@
 const { admin } = require("../config/auth");
 const verifyToken = async (req, res, next) => {
-  console.log({ headers: req.headers });
-  if (!req.header("Authorization")) {
-    res
-      .status(401)
-      .json({ error: "Unauthorized Access: You are not authorised" });
-    next();
-  }
+  console.log({ req });
   // if (req.header("Authorization")) {
-  const idToken = req.header("Authorization").replace("Bearer", "").trim()
+  const idToken = req
+    .header("authorization" || "Authorization")
+    .replace("Bearer", "")
+    .trim()
     ? req
         .header("authorization" || "Authorization")
         .replace("Bearer", "")
         .trim()
     : req.header("authorization" || "Authorization");
-  console.log({ idToken });
+  // console.log({ idToken });
   if (!idToken) {
     res
       .status(401)

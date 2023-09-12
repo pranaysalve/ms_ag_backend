@@ -1,7 +1,7 @@
 {
-  "name": "apigateway",
+  "name": "sku",
   "version": "0.1.0",
-  "description": "CRUD APP TO CREATE, READ, UPDATE AND DELETE API Gateway + user auth FROM AND TO DATABASE",
+  "description": "CRUD APP TO CREATE, READ, UPDATE AND DELETE SKU FROM AND TO DATABASE",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -17,7 +17,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-http-proxy": "^2.0.0",
     "firebase": "^10.3.1",
     "firebase-admin": "^11.10.1",
     "mongoose": "^7.5.0",

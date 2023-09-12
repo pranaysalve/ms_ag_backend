@@ -1,4 +1,3 @@
-const AppError = require("../utils/appError");
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'lead-guide']. role='user'

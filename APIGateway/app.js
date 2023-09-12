@@ -53,5 +53,6 @@ app.use(
 );
 app.use("/freight", verifyToken, proxy(process.env.FREIGHTSERVICE));
 app.use("/order", verifyToken, proxy(process.env.ORDERSERVICE));
+app.use("/myaccount", verifyToken, proxy(process.env.USERSERVICE));
 
 module.exports = app;

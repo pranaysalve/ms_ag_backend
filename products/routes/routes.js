@@ -6,6 +6,7 @@ router.use(restrictTo("manager", "admin"));
 
 router.get("/", Controller.getAll);
 
+
 router.use(restrictTo("admin"));
 router
   .post("/", Controller.createOne)

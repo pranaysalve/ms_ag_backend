@@ -24,17 +24,20 @@ const OrderSchema = new mongoose.Schema({
   //freight details
   freight: {
     type: Object,
-    ref: "freightDetailsSchema",
+    required: true,
+    default: null,
   },
   source: {
     type: String,
   },
   destination: {
     type: String,
+    default: null,
   },
   totalFreightCost: {
     type: Number,
     required: true,
+    default: 0,
   },
   totalProductAndFreightCost: {
     type: Number,

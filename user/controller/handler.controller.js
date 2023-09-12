@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const Model = require("../model/model");
-
+const axios = require("axios");
 exports.getAll = catchAsync(async (req, res, next) => {
   const doc = await Model.find({ ...req.query });
   res.status(200).json({
@@ -13,7 +13,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {
-  const doc = await Model.findById(req.params.id);
+  const doc = await Model.findById({ uid: req.params.id });
   res.status(200).json({
     data: {
       results: doc.length,
@@ -39,31 +39,53 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
+  console.log({ body: req.body });
   let doc;
   if (req.params.id) {
     doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
   }
   if (!req.params.id) {
-    doc = await Model.updateMany({ sku: { product: req.body } });
+    doc = await Model.updateMany({ product: req.body });
   }
-  // let updateRate;
-  // try {
-  //   updateRate = await axios.patch(`http://localhost:8013`, doc, {
-  //     headers: {
-  //       Authorization: req.header("authorization" || "Authorization"),
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   console.log({ updateRate });
-  // } catch (error) {
-  //   console.error("Error updating SKU:", error.message);
-  //   // Handle the error as needed
-  // }
+  let updateRate;
+  let updateLogisticsMode; //8016
+  const RATESERVICE = "http://localhost:8013";
+  const LOGISTICSWITHSKUSERVICE = "http://localhost:8016";
+  try {
+    updateRate = await axios.patch(RATESERVICE, JSON.stringify(req.body), {
+      headers: {
+        Authorization: req.header("authorization" || "Authorization"),
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Error updating SKU:", error.message);
+    // Handle the error as needed
+  }
+  try {
+    if (updateRate) {
+      updateLogisticsMode = await axios.patch(
+        LOGISTICSWITHSKUSERVICE,
+        JSON.stringify(req.body),
+        {
+          headers: {
+            Authorization: req.header("authorization" || "Authorization"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+  } catch (error) {
+    console.error("Error updating SKU:", error.message);
+    // Handle the error as needed
+  }
 
   res.status(200).json({
     data: {
       results: doc.length,
       data: doc,
+      rates: updateRate && updateRate.data,
+      logisticsku: updateLogisticsMode && updateLogisticsMode.data,
     },
   });
 });

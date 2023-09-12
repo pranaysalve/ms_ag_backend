@@ -22,12 +22,13 @@ exports.getAllByCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.createOne = catchAsync(async (req, res, next) => {
-  const findDoc = await Model.findOne({ ...req.body });
-  if (findDoc) {
-    if (findDoc) {
-      return next(new AppError("Product Already Exist", 404));
-    }
-  }
+  console.log({ body: req.body });
+  // const findDoc = await Model.findOne({ ...req.body });
+  // if (findDoc) {
+  //   if (findDoc) {
+  //     return next(new AppError("Product Already Exist", 404));
+  //   }
+  // }
   const doc = await Model.create({ ...req.body });
   res.status(200).json({
     data: {
